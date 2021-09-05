@@ -6,10 +6,17 @@ const loadSearchCountry = () => {
     const searchField = document.getElementById('search-field')
     const countryName = searchField.value 
     searchField.value = ''
+    if(countryName === ''){
+       return
+    }
+    else{
 
     fetch(`https://coronavirus-19-api.herokuapp.com/countries/${countryName}`)
     .then(res => res.json())
     .then(data => displaySingleCountryInfo(data))  
+    }
+
+
 };
 
 const displaySingleCountryInfo = (countries) =>{
@@ -70,6 +77,7 @@ const loadAllCountries = () => {
     .then(res => res.json())
     .then(data => displayAllCountries(data))
 }
+
 loadAllCountries()
 
 // display all countries
@@ -87,14 +95,14 @@ const displayAllCountries = (countries) => {
             <p>
                 <span id="cases">Cases: ${country.cases.toLocaleString()} |</span>
                 <span id="today">Today: ${country.todayCases.toLocaleString()} |</span>
-                <span id="active">Active: ${country.active.toLocaleString()}</span>
+                <span id="active">Active: ${country.active?.toLocaleString()}</span>
              </p>
              <p class= "py-1">
                 <span id="deaths">Deaths: ${country.deaths.toLocaleString()} |</span>
                 <span id="death-today">Today: ${country.todayDeaths.toLocaleString()}|</span>
              </p>
               <p class= "pb-1">
-               <span id="recovery">Recover: ${country.recovered.toLocaleString()} |</span>
+               <span id="recovery">Recover: ${country.recovered?.toLocaleString()} |</span>
               <span id="critical">Critical: ${country.critical.toLocaleString()} |</span>
              </p>
 
@@ -156,6 +164,4 @@ const displaySingleCountry = (countries) => {
     </p>
     
     `;
-    
-
 };
